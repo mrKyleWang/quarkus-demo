@@ -1,6 +1,6 @@
-package com.example.web;
+package com.example.quarkus.web;
 
-import com.example.service.TestService;
+import com.example.quarkus.service.TestService;
 
 import javax.inject.Inject;
 import javax.ws.rs.GET;

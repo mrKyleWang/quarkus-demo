@@ -1,4 +1,4 @@
-package com.example.service;
+package com.example.quarkus.service;
 
 import javax.enterprise.context.ApplicationScoped;
 
