@@ -18,22 +18,39 @@ public class UserService {
     @Inject
     UserRepository userRepository;
 
+    /**
+     * 查询所有用户
+     */
     public List<User> getAll() {
-        return userRepository.getAll();
+        return userRepository.listAll();
     }
 
+    /**
+     * 通过手机号查询用户
+     */
     public User getByPhone(String phone) {
-        return userRepository.getByPhone(phone);
+        return userRepository.find("phone", phone).firstResult();
     }
 
+    /**
+     * 保存用户 (事务操作)
+     */
     @Transactional
     public User saveUser(User user) {
-        User persistUser = userRepository.getByPhone(user.getPhone());
+        // 通过手机号查询，如果存在则更新name，否则新增
+        User persistUser = getByPhone(user.getPhone());
         if (persistUser == null) {
-            userRepository.addUser(user);
+            userRepository.persist(user);
         } else {
             persistUser.setName(user.getName());
         }
         return persistUser;
+    }
+
+    /**
+     * 通过id删除用户
+     */
+    public void deleteUser(Long id) {
+        userRepository.deleteById(id);
     }
 }
